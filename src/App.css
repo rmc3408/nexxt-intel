@@ -1,29 +1,41 @@
 .App {
-  height: 90vh;
+  margin: 2vh 2vw;
 }
 
 .LoadingBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 80vh;
 }
 
 .filteredOUT {
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   margin-top: 40px;
-  margin-left: calc(60vw - 150px); 
-  margin-right: 150px;
-  width: 40vw;
-}
-.filteredOUT > label{
-  width: 20%;
-}
-.filteredOUT > div {
+  margin-left: 150px;
   width: 80%;
 }
+.filteredOUT > div:first-child {
+  color: rgb(113, 114, 116);
+}
+
+.filteredOUT > div:nth-child(2) {
+  color: rgb(174, 175, 177); 
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 40vw;
+}
+
+.filteredOUT > div:nth-child(2) > label {
+  width: 15%;
+}
+.filteredOUT > div:nth-child(2) > div {
+  width: 80%;
+}
+
 
 
 .spinner {
