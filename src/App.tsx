@@ -8,11 +8,37 @@ import { IAlbums, IPhotos, IUsers } from "./types/data";
 import "./App.css";
 
 function App() {
+  const allAlbums = [
+    "album0",
+    "album1",
+    "album2",
+    "album3",
+    "album4",
+    "album5",
+    "album6",
+    "album7",
+    "album8",
+    "album9",
+  ];
+  const options = [
+    { value: "album0", label: "album0" },
+    { value: "album1", label: "album1" },
+    { value: "album2", label: "album2" },
+    { value: "album3", label: "album3" },
+    { value: "album4", label: "album4" },
+    { value: "album5", label: "album5" },
+    { value: "album6", label: "album6" },
+    { value: "album7", label: "album7" },
+    { value: "album8", label: "album8" },
+    { value: "album9", label: "album9" },
+  ];
+
   const [users, setUsers] = useState<IUsers[]>([]);
   const [albums, setAlbums] = useState<IAlbums[]>([]);
   const [photos, setPhotos] = useState<IPhotos[]>([]);
   const [nivoData, setNivoData] = useState<any>(null);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [nivoKeys, setNivoKeys] = useState<string[]>(allAlbums);
+  const [nivoOption, setNivoOption] = useState(options);
 
   async function fetchDataUsers() {
     const res = await getUsers();
@@ -43,10 +69,13 @@ function App() {
   }, [albums]);
 
   const outAlbum = (newValue: any) => {
-    const filteredData = nivoKeys.filter(() => newValue.label);
-    console.log(`Option selected:`, newValue.label);
-    console.log(filteredData);
-    setSelectedOption(newValue);
+    const newNivoKey = nivoKeys;
+    const idxKey = nivoKeys.indexOf(newValue.label);
+    newNivoKey.splice(idxKey, 1);
+    setNivoKeys(newNivoKey);
+
+    const selectOption = nivoOption.filter((item) => item.label !== newValue.label);
+    setNivoOption(selectOption);
   };
 
   useEffect(() => {
@@ -73,42 +102,11 @@ function App() {
     setNivoData(nivo);
   }, [users, albums, photos]);
 
-  const options = [
-    { value: "album0", label: "album0" },
-    { value: "album1", label: "album1" },
-    { value: "album2", label: "album2" },
-    { value: "album3", label: "album3" },
-    { value: "album4", label: "album4" },
-    { value: "album5", label: "album5" },
-    { value: "album6", label: "album6" },
-    { value: "album7", label: "album7" },
-    { value: "album8", label: "album8" },
-    { value: "album9", label: "album9" },
-  ];
-
-  const nivoKeys = [
-    "album0",
-    "album1",
-    "album2",
-    "album3",
-    "album4",
-    "album5",
-    "album6",
-    "album7",
-    "album8",
-    "album9",
-  ];
-
   return (
     <div className="App">
       <div className="filteredOUT">
         <label>FILTERED OUT:</label>
-        <Select
-          options={options}
-          value={selectedOption}
-          // @ts-ignore
-          onChange={outAlbum}
-        />
+        <Select options={nivoOption} onChange={outAlbum} />
       </div>
       <div className="LoadingBox">
         {nivoData === null ? (
