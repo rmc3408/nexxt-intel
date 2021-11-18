@@ -1,1 +1,0 @@
-# nexxt-intel

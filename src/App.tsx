@@ -4,15 +4,17 @@ import { getAlbums } from "./API/albums";
 import { getPhotos } from "./API/photos";
 import { IAlbums, IPhotos, IUsers } from "./types/data";
 import "./App.css";
-import DashBoard from "./DashBoard";
+import DashBoard from "./components/DashBoard";
 import { groupBy } from "./helpers/functions";
 
 
 function App() {
+  const [isLoading, setloading] = useState<boolean>(false);
   const [users, setUsers] = useState<IUsers[]>([]);
   const [albums, setAlbums] = useState<IAlbums[]>([]);
   const [photos, setPhotos] = useState<IPhotos[]>([]);
   const [maxAlbums, setMaxAlbums] = useState<string[]>([]);
+
 
   async function fetchDataUsers() {
     const u = await getUsers();
@@ -31,10 +33,14 @@ function App() {
   }
 
   useEffect(() => {
-    fetchDataUsers();
+    const timer = setTimeout(() => {
+      fetchDataUsers();
+      setloading(true);
+    }, 2200);
+    return () => clearTimeout(timer);
   }, []);
 
-  return <DashBoard users={users} photos={photos} albums={albums} allAlbums={maxAlbums} />;
+  return isLoading ? <DashBoard users={users} photos={photos} albums={albums} allAlbums={maxAlbums} /> : <div className="spinnerBox"><div className="spinner"></div></div>;
 }
 
 export default App;

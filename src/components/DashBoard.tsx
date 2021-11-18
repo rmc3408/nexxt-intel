@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import Select from "react-select";
 import Graph from "./graph";
-import { IAlbums, IPhotos, IUsers } from "./types/data";
-import "./App.css";
+import { IAlbums, IPhotos, IUsers } from "../types/data";
 
 type DashProps = {
   users: IUsers[];
@@ -16,25 +14,12 @@ type OptionSelection = {
   value: string;
 };
 
-//const totalAlbums = Array.from(Object.keys(groupedAlbums), (num) => `album${num}`);
-
-const options: OptionSelection[] = [
-  { value: "album0", label: "album0" },
-  { value: "album1", label: "album1" },
-  { value: "album2", label: "album2" },
-  { value: "album3", label: "album3" },
-  { value: "album4", label: "album4" },
-  { value: "album5", label: "album5" },
-  { value: "album6", label: "album6" },
-  { value: "album7", label: "album7" },
-  { value: "album8", label: "album8" },
-  { value: "album9", label: "album9" },
-];
 
 function DashBoard({ users, photos, albums, allAlbums }: DashProps) {
+  const optionsAlbums = Array.from(allAlbums, (num) => ({ value: num, label: num }));
   const [nivoData, setNivoData] = useState<any>(null);
   const [nivoKeys, setNivoKeys] = useState<string[]>(allAlbums);
-  const [nivoOption, setNivoOption] = useState(options);
+  const [nivoOption, setNivoOption] = useState<OptionSelection[]>(optionsAlbums);
 
   const outAlbum = (newValue: any) => {
     const newNivoKey = nivoKeys;
