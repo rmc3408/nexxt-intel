@@ -57,6 +57,7 @@ function DashBoard({ users, photos, albums, allAlbums }: DashProps) {
     });
     setNivoData(nivo);
     setNivoKeys(allAlbums);
+    setNivoOption(optionsAlbums);
   }, [users, albums, photos, allAlbums]);
 
   return (
